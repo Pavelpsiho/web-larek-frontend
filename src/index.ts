@@ -74,7 +74,6 @@ events.on('cart:open', () => {
 });
 
 events.on('cart:preview', (cartState: TUpdateCounter) => {
-	// console.log(cartState.count, 'send state');
 	shoppingCart.items = appData.cartItems.map((item) => {
 		const cartItem = new CartItem(cloneTemplate(itemCartTemplate), {
 			onClick: () => events.emit('card:remove', item),

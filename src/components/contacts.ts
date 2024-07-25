@@ -1,4 +1,3 @@
-// import { IOrderForm } from '../types';
 import { IContactsFormView, TContactsActions, TContactsForm } from '../types';
 import { IEvents } from './base/events';
 import { Form } from './form';

@@ -1,5 +1,3 @@
-// API
-// API types
 export type Url = {
 	images: string;
 	items: string;
@@ -28,14 +26,13 @@ export interface ICartItem {
 	status: boolean;
 }
 
-// StoreAPI
+
 export type TOrderResult = {
 	id: string;
 	total: number;
 };
 
-// Model
-// AppData types
+
 export type TOrder = {
 	items: string[];
 	total: number;
@@ -69,8 +66,7 @@ export interface IAppState {
 	createOrder(): void;
 }
 
-// View
-// Order View
+
 export interface IOrderView {
 	address: string;
 	setNextToggle(state: boolean): void;
@@ -86,7 +82,7 @@ export type TOrderActions = {
 	onClickPayment: (event: Event) => void;
 };
 
-// Contacts View
+
 export interface IContactsFormView {
 	email: string;
 	phone: string;
@@ -102,7 +98,7 @@ export type TContactsActions = {
 	onClick: () => void;
 };
 
-// Card View
+
 export type TCardActions = {
 	onClick: (event: MouseEvent) => void;
 };
@@ -136,7 +132,7 @@ export const TDictCategoryCard: Map<string, string> = new Map([
 	['хард-скил', 'card__category_additional'],
 ]);
 
-// ShoppingCart View
+
 export type TShoppingCart = {
 	items: HTMLElement[];
 	price: number;
@@ -154,7 +150,7 @@ export interface IShoppingCartView {
 	setOrderIndex(): void;
 }
 
-// Page View
+
 export type TPage = {
 	catalog: HTMLElement[];
 	locked: boolean;
@@ -175,7 +171,7 @@ export interface IPageView {
 	locked: boolean;
 }
 
-// Modal View
+
 export type TModalData = {
 	content: HTMLElement;
 };
@@ -188,7 +184,7 @@ export interface IModalView {
 	render(data: TModalData): HTMLElement;
 }
 
-// Form View
+
 export type TFormState = {
 	valid: boolean;
 	errors: string[];
@@ -200,7 +196,7 @@ export interface IFormView<T> {
 	render(state: Partial<T> & TFormState): HTMLFormElement;
 }
 
-// Success View
+
 export type TSuccessForm = {
 	totalPrice: number;
 };

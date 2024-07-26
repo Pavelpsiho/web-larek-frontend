@@ -1,3 +1,4 @@
+
 export type Url = {
 	images: string;
 	items: string;
@@ -34,7 +35,7 @@ export type TOrderResult = {
 
 
 export type TOrder = {
-	items: string[];
+	items: { id: string; price: number }[];
 	total: number;
 } & TOrderForm &
 	TContactsForm;
@@ -80,6 +81,7 @@ export type TOrderForm = {
 
 export type TOrderActions = {
 	onClickPayment: (event: Event) => void;
+	
 };
 
 
@@ -96,6 +98,7 @@ export type TContactsForm = {
 
 export type TContactsActions = {
 	onClick: () => void;
+	onSubmit?: (event: Event) => void;
 };
 
 
@@ -116,7 +119,7 @@ export type TCard = {
 export interface ICardView {
 	title: string;
 	image?: string;
-	price: string;
+	price: number | null;
 	category?: string;
 	description?: string;
 	button: HTMLButtonElement;
@@ -142,6 +145,7 @@ export type TShoppingCart = {
 export type TShopCartActions = {
 	onClick: (event: MouseEvent) => void;
 };
+
 
 export interface IShoppingCartView {
 	items: HTMLElement[];
@@ -177,13 +181,11 @@ export type TModalData = {
 };
 
 export interface IModalView {
-	content: HTMLElement;
-	open(): void;
-	close(): void;
-	toggleCartBtn(state: boolean): void;
-	render(data: TModalData): HTMLElement;
+    content: HTMLElement;
+    open(): void;
+    close(): void;
+    render(data: TModalData): HTMLElement;
 }
-
 
 export type TFormState = {
 	valid: boolean;

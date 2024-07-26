@@ -15,12 +15,14 @@ export class Success extends Component<TSuccessForm> implements ISuccessView {
 		);
 
 		this._close = ensureElement<HTMLElement>(
-			'.order-success__clos',
+			'.order-success__close',
 			this.container
 		);
-
 		if (actions?.onClick) {
-			this._close.addEventListener('click', actions.onClick);
+			this._close.addEventListener('click', () => {
+				console.log('Success close button clicked');
+				actions.onClick();
+			});
 		}
 	}
 

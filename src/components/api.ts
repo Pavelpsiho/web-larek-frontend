@@ -29,7 +29,7 @@ export class StoreAPI implements IStoreAPI {
 			},
 		};
 	}
-
+	
 	handleResponse(response: Response): Promise<object> {
 		if (response.ok) return response.json();
 		else

@@ -1,5 +1,5 @@
 export abstract class Component<T> {
-    protected constructor(protected readonly container: HTMLElement) {}
+    protected constructor(protected readonly container: HTMLElement) { }
 
     protected setText(element: HTMLElement | Element, value: unknown) {
         if (element) element.textContent = String(value);
@@ -22,8 +22,8 @@ export abstract class Component<T> {
 
     protected toggleClass(element: HTMLElement, className: string, state: boolean) {
         if (element) {
-            if (state) element.classList.add(className);
-            else element.classList.remove(className);
+            if (state) this.addStyleClass(element, className);
+            else this.removeStyleClass(element, className);
         }
     }
 

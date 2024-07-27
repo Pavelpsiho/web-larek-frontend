@@ -12,6 +12,7 @@ import { ShoppingCart } from './components/shoppingCart';
 import { Order } from './components/orderForm';
 import { Contacts } from './components/contactsForm';
 import { Success } from './components/success';
+import { TOrderResult } from './types/index'
 
 const events = new EventEmitter();
 const api = new StoreAPI({ items, images });
@@ -51,23 +52,23 @@ events.on('items:changed', () => {
     });
 });
 
-events.on('preview:changed', (item: ICatalogItem) => { 
-    const card = new CatalogItem(cloneTemplate(cardPreviewTemplate), { 
-        onClick: () => events.emit('cart:changed', item), 
-    }); 
+events.on('preview:changed', (item: ICatalogItem) => {
+    const card = new CatalogItem(cloneTemplate(cardPreviewTemplate), {
+        onClick: () => events.emit('cart:changed', item),
+    });
     card.toggleButton(item.status);
 
-    card.setCategoryCard(item.category); 
-    modal.render({ 
-        content: card.render({ 
-            title: item.title, 
-            image: item.image, 
-            category: item.category, 
-            price: item.price, 
-            description: item.description, 
-            statusBtn: item.status, 
-        }), 
-    }); 
+    card.setCategoryCard(item.category);
+    modal.render({
+        content: card.render({
+            title: item.title,
+            image: item.image,
+            category: item.category,
+            price: item.price,
+            description: item.description,
+            statusBtn: item.status,
+        }),
+    });
 });
 
 
@@ -148,21 +149,20 @@ events.on('order:submit', () => {
 });
 
 const contacts = new Contacts(cloneTemplate(contactsTemplate), events, {
-onClick: () => {
-    appData.createOrder();
-    console.log('Order Items:', JSON.stringify(appData.order.items, null, 2)); 
-    console.log('Order Data:', JSON.stringify(appData.order, null, 2));
-    api
-        .orderItems(appData.order)
-        .then((response) => {
-            console.log(response);
-            appData.clearAllItems();
-            events.emit('success');
-        })
-        .catch((error) => {
-            events.emit('cart:open');
-            console.error(error);
-        });
+    onClick: () => {
+        appData.createOrder();
+        console.log('Order Items:', JSON.stringify(appData.order.items, null, 2));
+        console.log('Order Data:', JSON.stringify(appData.order, null, 2));
+        api
+            .orderItems(appData.order)
+            .then((response) => {
+                console.log(response);
+                appData.clearAllItems();
+                events.emit('contacts:submit');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
     },
 });
 
@@ -173,19 +173,10 @@ events.on(/^contacts\..*:change/, () => {
     appData.isContactsValid();
 });
 
-events.on('success', () => {
-    const success = new Success(cloneTemplate(successTemplate), {
-        onClick: () => {
-            events.emit('items:changed');
-            modal.close();
-        },
-    });
-    modal.render({
-        content: success.render({
-            totalPrice: appData.getTotal(),
-        }),
-    });
-});
+const success = new Success(cloneTemplate(successTemplate), events);
+events.on('contacts:submit', (res: TOrderResult) => { modal.render({ content: success.render({ totalPrice: appData.getTotal() }) }) });
+
+events.on('success:finish', () => modal.close());
 
 events.on('modal:open', () => (page.locked = true));
 events.on('modal:close', () => (page.locked = false));

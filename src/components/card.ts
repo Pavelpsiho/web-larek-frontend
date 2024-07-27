@@ -60,12 +60,16 @@ export class Card extends Component<TCard> implements ICardView {
 
     set price(value: number | null) {
         if (value === null) {
-            this.setPrice(this._price, 'Бесценно');
-            this.toggleButton(true);
+            this.setDisabled(this._button, true);
+            this.setText(this._button, "Нельзя купить");
+            this.setText(this._price, "Бесценно");
         } else {
-            this.setPrice(this._price, `${value} синапсов`);
-            this.toggleButton(false);
+            this.setText(this._price, `${value} синапсов`)
         }
+    }
+
+    set inBasket(isInBasket: boolean) {
+        this.setText(this._button, isInBasket ? 'Убрать' : 'В корзину');
     }
 
     get category(): string {

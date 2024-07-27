@@ -13,6 +13,7 @@ import { IEvents } from './base/events';
 export class AppState implements IAppState {
 	catalog: ICatalogItem[];
 	cartItems: ICartItem[];
+	basket: ICartItem[];
 	total: number;
 	order: TOrder = {
 		payment: null,
@@ -68,6 +69,11 @@ export class AppState implements IAppState {
 		return this.total;
 	}
 
+	isInBasket(item: ICartItem) {
+		return this.basket.some((basketItem) => {
+			return basketItem.id === item.id
+		})
+	}
 	removeCartItem(item: ICartItem): void {
 		item.status = false;
 		this.cartState.delete(item.id);

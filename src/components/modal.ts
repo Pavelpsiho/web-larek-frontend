@@ -49,6 +49,7 @@ export class Modal extends Component<TModalData> implements IModalView {
 
     render(data: TModalData): HTMLElement {
         super.render(data);
+        this.content = data.content;
         this.open();
         return this.container;
     }

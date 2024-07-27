@@ -68,6 +68,8 @@ export interface IAppState {
 }
 
 
+
+
 export interface IOrderView {
 	address: string;
 	setNextToggle(state: boolean): void;
@@ -81,7 +83,7 @@ export type TOrderForm = {
 
 export type TOrderActions = {
 	onClickPayment: (event: Event) => void;
-	
+
 };
 
 
@@ -181,10 +183,10 @@ export type TModalData = {
 };
 
 export interface IModalView {
-    content: HTMLElement;
-    open(): void;
-    close(): void;
-    render(data: TModalData): HTMLElement;
+	content: HTMLElement;
+	open(): void;
+	close(): void;
+	render(data: TModalData): HTMLElement;
 }
 
 export type TFormState = {
